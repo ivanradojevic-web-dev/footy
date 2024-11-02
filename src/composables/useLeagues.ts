@@ -22,6 +22,7 @@ export function useLeagues() {
         leagues.value = response.data.data.map(league => ({
           name: league.name,
           logo: league.logos.light,
+          slug: league.slug,
         }))
 
         // Cache the fetched data in localStorage

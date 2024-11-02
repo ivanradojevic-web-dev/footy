@@ -12,4 +12,5 @@ export interface League {
 export interface LeagueDisplay {
   name: string
   logo: string
+  slug: string
 }

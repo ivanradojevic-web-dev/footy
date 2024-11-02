@@ -23,14 +23,16 @@ fetchLeagues()
         <RouterLink to="/about">About</RouterLink>
 
         <ul>
-          <li v-for="league in leagues" :key="league.name">
-            <img
-              :src="league.logo"
-              :alt="`${league.name} logo`"
-              width="32"
-              height="32"
-            />
-            <span>{{ league.name }}</span>
+          <li v-for="league in leagues" :key="league.slug">
+            <RouterLink :to="{ name: 'league', params: { slug: league.slug } }">
+              <img
+                :src="league.logo"
+                :alt="`${league.name} logo`"
+                width="32"
+                height="32"
+              />
+              <span>{{ league.name }}</span>
+            </RouterLink>
           </li>
         </ul>
       </nav>
