@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue'
 import axios from 'axios'
-import type { League, LeagueDisplay } from '@/types/Leagues'
+import type { League, LeagueDisplay } from '@/types/League'
 
 export function useLeagues() {
   const leagues: Ref<LeagueDisplay[]> = ref([])
@@ -22,7 +22,7 @@ export function useLeagues() {
         leagues.value = response.data.data.map(league => ({
           name: league.name,
           logo: league.logos.light,
-          slug: league.slug,
+          slug: league.id,
         }))
 
         // Cache the fetched data in localStorage
