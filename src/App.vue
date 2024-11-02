@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { useLeagues } from '@/composables/useLeagues'
+
+const { leagues, fetchLeagues } = useLeagues()
+
+fetchLeagues()
 </script>
 
 <template>
@@ -17,6 +21,18 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+
+        <ul>
+          <li v-for="league in leagues" :key="league.name">
+            <img
+              :src="league.logo"
+              :alt="`${league.name} logo`"
+              width="32"
+              height="32"
+            />
+            <span>{{ league.name }}</span>
+          </li>
+        </ul>
       </nav>
     </div>
   </header>
