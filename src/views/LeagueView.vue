@@ -2,6 +2,7 @@
 import { defineProps, watchEffect } from 'vue'
 import { useLeagueStandings } from '@/composables/useLeagueStandings'
 import type { TeamStat } from '@/types/TeamStat'
+import defaultLogo from '@/assets/default-logo.png'
 
 const props = defineProps<{ slug: string }>()
 
@@ -39,24 +40,33 @@ const getStatValue = (
         </tr>
       </thead>
       <tbody class="divide-y divide-white/5 text-white">
-        <tr v-for="teamStat in leagueStandings" :key="teamStat.team.id">
+        <tr v-for="teamStat in leagueStandings" :key="teamStat.team?.id">
           <td class="py-4 pl-4 pr-8">
             <div class="flex items-center gap-x-4">
               <img
-                :src="teamStat.team.logos[0].href"
+                :src="teamStat.team?.logos?.[0]?.href || defaultLogo"
                 alt=""
                 class="h-8 w-8 rounded-full bg-gray-800"
               />
-              <span>{{ teamStat.team.displayName }}</span>
+              <span
+                >{{ getStatValue(teamStat, 'rank') || '-' }}.
+                {{ teamStat.team?.displayName }}</span
+              >
             </div>
           </td>
-          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'gamesPlayed') }}</td>
-          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'wins') }}</td>
-          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'ties') }}</td>
-          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'losses') }}</td>
-          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'pointsFor') }}</td>
+          <td class="py-4 pr-4">
+            {{ getStatValue(teamStat, 'gamesPlayed') || '-' }}
+          </td>
+          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'wins') || '-' }}</td>
+          <td class="py-4 pr-4">{{ getStatValue(teamStat, 'ties') || '-' }}</td>
+          <td class="py-4 pr-4">
+            {{ getStatValue(teamStat, 'losses') || '-' }}
+          </td>
+          <td class="py-4 pr-4">
+            {{ getStatValue(teamStat, 'pointsFor') || '-' }}
+          </td>
           <td class="py-4 pr-4 font-semibold">
-            {{ getStatValue(teamStat, 'points') }}
+            {{ getStatValue(teamStat, 'points') || '-' }}
           </td>
         </tr>
       </tbody>
