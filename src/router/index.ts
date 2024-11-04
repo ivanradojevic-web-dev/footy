@@ -8,6 +8,10 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      beforeEnter: (to, from, next) => {
+        const defaultLeagueSlug = 'eng.1'
+        next({ name: 'league', params: { slug: defaultLeagueSlug } })
+      },
     },
     {
       path: '/about',

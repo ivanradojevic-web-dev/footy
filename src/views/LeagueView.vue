@@ -6,8 +6,13 @@ import defaultLogo from '@/assets/default-logo.png'
 
 const props = defineProps<{ slug: string }>()
 
-const { leagueStandings, leagueName, seasonDisplay, fetchLeagueStandings } =
-  useLeagueStandings()
+const {
+  leagueStandings,
+  leagueName,
+  seasonDisplay,
+  fetchLeagueStandings,
+  loading,
+} = useLeagueStandings()
 
 watchEffect(() => {
   fetchLeagueStandings(props.slug)
@@ -24,10 +29,13 @@ const getStatValue = (
 
 <template>
   <div class="bg-gray-900 py-10">
-    <h1 class="px-4 text-base font-semibold text-white sm:px-6 lg:px-8">
+    <h1
+      v-show="!loading"
+      class="px-4 text-base font-semibold text-white sm:px-6 lg:px-8"
+    >
       {{ leagueName }} - Season {{ seasonDisplay }}
     </h1>
-    <table class="mt-6 w-full text-left">
+    <table v-show="!loading" class="mt-6 w-full text-left">
       <thead class="border-b border-white/10 text-sm text-white">
         <tr>
           <th class="py-2 pl-4 pr-8 font-semibold">Team</th>
